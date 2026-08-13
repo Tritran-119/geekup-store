@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import logoSvg from '../assets/logo.svg';
+import mailboxSvg from '../assets/mailbox.svg';
 import axios from 'axios';
 import { Eye, EyeOff, Phone, MapPin } from 'lucide-react';
 
@@ -49,11 +51,11 @@ export default function Login() {
                     <div className="space-y-6">
                         {/* Logo GEEK Up căn trái */}
                         <div className="flex justify-center">
-                            <img 
-                                src="../src/assets/logo.svg" 
-                                alt="GEEK Up Logo" 
-                                className="h-10 w-auto object-contain" 
-                                onError={(e) => { e.target.style.display = 'none' }} 
+                            <img
+                                src={logoSvg}
+                                alt="GEEK Up Logo"
+                                className="h-10 w-auto object-contain"
+                                onError={(e) => { e.target.style.display = 'none' }}
                             />
                         </div>
 
@@ -95,7 +97,7 @@ export default function Login() {
                     {/* HÌNH MAILBOX TO BỰ & FLOATING TRÀN LỆCH TRAI DƯỚI */}
                     <div className="pt-6 hidden md:block relative">
                         <img
-                            src="../src/assets/mailbox.svg"
+                            src={mailboxSvg}
                             alt="Mailbox Illustration"
                             className="w-72 lg:w-96 h-auto object-contain -ml-8 -mb-6 transform hover:scale-105 transition-transform duration-300 drop-shadow-md"
                         />

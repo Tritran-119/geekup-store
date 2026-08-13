@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import logoSvg from '../assets/logo.svg';
+import logoWhiteSvg from '../assets/logo-white.svg';
 import {
     Search, PhoneCall, Filter, Grid, List, ChevronDown,
     MapPin, Phone, Mail, LogOut, User, ArrowUp, MessageCircle, X
@@ -109,7 +111,7 @@ export default function ProductList() {
 
                     <div className="flex items-center gap-6">
                         <img
-                            src="../src/assets/logo.svg"
+                            src={logoSvg}
                             alt="GEEK Up"
                             className="h-9 cursor-pointer"
                             onClick={() => navigate('/')}
@@ -355,98 +357,98 @@ export default function ProductList() {
             </section>
 
             {/* ---------------- 5. FOOTER ---------------- */}
-                  <footer className="bg-[#04201E] text-white pt-12 pb-8">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                      
-                      <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start text-xs text-gray-300">
+            <footer className="bg-[#04201E] text-white pt-12 pb-8">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+                    <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start text-xs text-gray-300">
                         {/* Cột 1: Liên hệ */}
                         <div className="space-y-3">
-                          <p className="font-bold text-white text-base mb-1">Liên hệ</p>
-                          <p className="flex items-center space-x-2 text-sm">
-                            <Phone size={15} className="text-white shrink-0" />
-                            <span>+84 28 626 4400</span>
-                          </p>
-                          <p className="flex items-center space-x-2 text-sm">
-                            <Mail size={15} className="text-white shrink-0" />
-                            <span>hello@geekup.vn</span>
-                          </p>
+                            <p className="font-bold text-white text-base mb-1">Liên hệ</p>
+                            <p className="flex items-center space-x-2 text-sm">
+                                <Phone size={15} className="text-white shrink-0" />
+                                <span>+84 28 626 4400</span>
+                            </p>
+                            <p className="flex items-center space-x-2 text-sm">
+                                <Mail size={15} className="text-white shrink-0" />
+                                <span>hello@geekup.vn</span>
+                            </p>
                         </div>
-            
+
                         {/* Cột 2: Địa chỉ */}
                         <div className="space-y-3 md:col-span-2">
-                          <p className="font-bold text-white text-base mb-1">Địa chỉ</p>
-                          <div className="flex items-start space-x-2 text-sm">
-                            <MapPin size={16} className="text-white mt-0.5 shrink-0" />
-                            <p><span className="font-bold text-white">Văn phòng:</span> 244/31 Huỳnh Văn Bánh, Phường Phú Nhuận, TP.HCM</p>
-                          </div>
-                          <div className="flex items-start space-x-2 text-sm">
-                            <MapPin size={16} className="text-white mt-0.5 shrink-0" />
-                            <p><span className="font-bold text-white">Chi nhánh:</span> 27B/9 Nguyễn Đình Chiểu, Phường Tân Định, TP.HCM</p>
-                          </div>
+                            <p className="font-bold text-white text-base mb-1">Địa chỉ</p>
+                            <div className="flex items-start space-x-2 text-sm">
+                                <MapPin size={16} className="text-white mt-0.5 shrink-0" />
+                                <p><span className="font-bold text-white">Văn phòng:</span> 244/31 Huỳnh Văn Bánh, Phường Phú Nhuận, TP.HCM</p>
+                            </div>
+                            <div className="flex items-start space-x-2 text-sm">
+                                <MapPin size={16} className="text-white mt-0.5 shrink-0" />
+                                <p><span className="font-bold text-white">Chi nhánh:</span> 27B/9 Nguyễn Đình Chiểu, Phường Tân Định, TP.HCM</p>
+                            </div>
                         </div>
-            
+
                         {/* Cột 3 & 4: Nav Links */}
                         <div className="grid grid-cols-2 gap-4 md:col-span-1 text-sm font-medium space-y-0">
-                          <div className="space-y-2.5">
-                            <button onClick={() => window.location.href = '/'} className="block hover:text-[#33AFA6] transition-colors text-left">Trang chủ</button>
-                            <button onClick={() => window.location.href = '/'} className="block hover:text-[#33AFA6] transition-colors text-left">Sản phẩm</button>
-                            <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Dịch vụ</button>
-                            <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Về GeekUp</button>
-                            <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Insights</button>
-                          </div>
-                          <div className="space-y-2.5">
-                            <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Sự kiện</button>
-                            <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Tuyển dụng</button>
-                            <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left underline">Liên hệ →</button>
-                          </div>
+                            <div className="space-y-2.5">
+                                <button onClick={() => window.location.href = '/'} className="block hover:text-[#33AFA6] transition-colors text-left">Trang chủ</button>
+                                <button onClick={() => window.location.href = '/'} className="block hover:text-[#33AFA6] transition-colors text-left">Sản phẩm</button>
+                                <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Dịch vụ</button>
+                                <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Về GeekUp</button>
+                                <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Insights</button>
+                            </div>
+                            <div className="space-y-2.5">
+                                <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Sự kiện</button>
+                                <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left">Tuyển dụng</button>
+                                <button onClick={() => alert('Tính năng đang phát triển!')} className="block hover:text-[#33AFA6] transition-colors text-left underline">Liên hệ →</button>
+                            </div>
                         </div>
-            
+
                         {/* Cột 5: Social Icons */}
                         <div className="flex md:justify-end items-center space-x-4 pt-2 md:pt-0">
-                          <a href="https://facebook.com" target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity">
-                            <img 
-                              src="../src/assets/facebook.svg" 
-                              alt="Facebook" 
-                              className="w-7 h-7" 
-                              onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z'/%3E%3C/svg%3E";
-                              }}
-                            />
-                          </a>
-                          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity">
-                            <img 
-                              src="../src/assets/linkedin.svg" 
-                              alt="LinkedIn" 
-                              className="w-7 h-7" 
-                              onError={(e) => {
-                                e.target.onerror = null;
-                                e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z'/%3E%3C/svg%3E";
-                              }}
-                            />
-                          </a>
+                            <a href="https://www.facebook.com/GEEKUpVN" target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity">
+                                <img
+                                    src="../src/assets/facebook.svg"
+                                    alt="Facebook"
+                                    className="w-7 h-7"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z'/%3E%3C/svg%3E";
+                                    }}
+                                />
+                            </a>
+                            <a href="https://www.linkedin.com/company/geekupvn" target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity">
+                                <img
+                                    src="../src/assets/linkedin.svg"
+                                    alt="LinkedIn"
+                                    className="w-7 h-7"
+                                    onError={(e) => {
+                                        e.target.onerror = null;
+                                        e.target.src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z'/%3E%3C/svg%3E";
+                                    }}
+                                />
+                            </a>
                         </div>
-                      </div>
-            
-                      <div className="text-center my-8 pt-4">
-                        <div className="inline-flex flex-col items-center cursor-pointer" onClick={() => window.location.href = '/'}>
-                          <img 
-                            src="../src/assets/logo-white.svg" 
-                            alt="GEEK Up" 
-                            className="h-10 "
-                            onError={(e) => { e.target.style.display = 'none'; }}
-                          />
-                          <span className="text-gray-400 text-xs mt-2 tracking-wide font-medium">Trusted Product Partner</span>
-                        </div>
-                      </div>
-            
-                      <div className="border-t border-gray-800/80 w-full mb-6"></div>
-            
-                      <p className="text-center text-xs text-gray-400 font-medium">
-                        Copyright © | GEEK Up Technology JSC. All Rights Reserved 2021
-                      </p>
                     </div>
-                  </footer>
+
+                    <div className="text-center my-8 pt-4">
+                        <div className="inline-flex flex-col items-center cursor-pointer" onClick={() => window.location.href = '/'}>
+                            <img
+                                src={logoWhiteSvg}
+                                alt="GEEK Up"
+                                className="h-10 "
+                                onError={(e) => { e.target.style.display = 'none'; }}
+                            />
+                            <span className="text-gray-400 text-xs mt-2 tracking-wide font-medium">Trusted Product Partner</span>
+                        </div>
+                    </div>
+
+                    <div className="border-t border-gray-800/80 w-full mb-6"></div>
+
+                    <p className="text-center text-xs text-gray-400 font-medium">
+                        Copyright © | GEEK Up Technology JSC. All Rights Reserved 2021
+                    </p>
+                </div>
+            </footer>
 
             <div className="fixed bottom-6 right-6 flex flex-col space-y-3 z-50">
                 <button
