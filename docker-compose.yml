@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  # 1. Service Mock API (Mockoon CLI)
+  mock-api:
+    image: mockoon/cli:latest
+    container_name: mockoon_api
+    command: ["--data", "/data/mockoon-data.json", "--port", "3001"]
+    volumes:
+      - ./mockoon-data.json:/data/mockoon-data.json:ro
+    ports:
+      - "3001:3001"
+    networks:
+      - app-network
+
+  # 2. Service Frontend (React App)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: react_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - mock-api
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

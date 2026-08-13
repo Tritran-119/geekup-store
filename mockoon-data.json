@@ -1,0 +1,199 @@
+{
+  "uuid": "9cb6552c-5c47-4176-a5c9-5987d90f2cb0",
+  "lastMigration": 33,
+  "name": "GeekUpStore",
+  "endpointPrefix": "",
+  "latency": 0,
+  "port": 3001,
+  "hostname": "",
+  "folders": [],
+  "routes": [
+    {
+      "uuid": "3e5c4ebb-ec2e-4877-a484-53247fc2e457",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/login",
+      "responses": [
+        {
+          "uuid": "e1738e0e-5e76-4f5e-b4be-d25ffa22b18f",
+          "body": "{\r\n  \"success\": true,\r\n  \"token\": \"geekup-jwt-token-2026\",\r\n  \"user\": {\r\n    \"username\": \"admin\",\r\n    \"email\": \"hello@geekup.vn\",\r\n    \"name\": \"KayTee\",\r\n    \"avatar\": \"https://ui-avatars.com/api/?name=GEEK+Up&background=33AFA6&color=fff\"\r\n  }\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "03522488-8aae-4adb-a585-8b98799e3832",
+      "type": "http",
+      "documentation": "",
+      "method": "post",
+      "endpoint": "api/logout",
+      "responses": [
+        {
+          "uuid": "40455214-16b8-4551-ba3d-294acc9d0f1a",
+          "body": "{ \"success\": true, \"message\": \"Logged out successfully\" }",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "f6035e33-4fa7-4d4a-b11e-86b8f10c8757",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/product",
+      "responses": [
+        {
+          "uuid": "5ef11fc5-5e1c-4374-98dd-b1babe7b7b67",
+          "body": "[\r\n  {\r\n    \"id\": \"kafi-wealth\",\r\n    \"name\": \"Kafi Wealth\",\r\n    \"subtitle\": \"Chứng Khoán Kafi Tiên Phong Xây dựng Giải Pháp Quản Lý Gia Sản (Wealth Management) Thông Minh Và An Toàn\",\r\n    \"service\": [\"UX Research\", \"Product Concept\", \"UX Ideation\"],\r\n    \"description\": \"Chứng khoán Kafi là một trong những đơn vị tiên phong tại Việt Nam trong lĩnh vực Quản lý Gia sản. GEEK Up đồng hành xây dựng giải pháp số tích hợp Kafi Wealth.\",\r\n    \"price\": \"Giá thỏa thuận\",\r\n    \"tags\": [\"Finance\", \"Mobile App\", \"Digital Innovation\"],\r\n    \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed=KafiWealth\"\r\n  },\r\n  {\r\n    \"id\": \"shinhan-finance\",\r\n    \"name\": \"Shinhan Finance App\",\r\n    \"subtitle\": \"Shinhan Finance tiên phong xây dựng giải pháp số giúp khách hàng chủ động quản lý khoản vay\",\r\n    \"service\": [\"Web App Development\", \"UI/UX Design\"],\r\n    \"description\": \"Shinhan Finance lựa chọn GEEK Up là đối tác chiến lược để cùng xây dựng giải pháp số tích hợp tất cả trong một.\",\r\n    \"price\": \"Giá thỏa thuận\",\r\n    \"tags\": [\"Finance\", \"Web\"],\r\n    \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed=Shinhan\"\r\n  },\r\n  {\r\n    \"id\": \"loc-troi-group\",\r\n    \"name\": \"Lộc Trời Nông Nghiệp\",\r\n    \"subtitle\": \"Tiên phong quản lý liên kết sản xuất nông nghiệp trên nền tảng mobile tại Việt Nam\",\r\n    \"service\": [\"Mobile App\", \"ERP Integration\"],\r\n    \"description\": \"GEEK Up cùng đồng hành và phát triển nền tảng mobile nhằm tích hợp liền mạch các quy trình nghiệp vụ phức tạp của tập đoàn Lộc Trời.\",\r\n    \"price\": \"Giá thỏa thuận\",\r\n    \"tags\": [\"Agriculture\", \"Web\", \"Mobile App\"],\r\n    \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed=LocTroi\"\r\n  },\r\n  {\r\n    \"id\": \"tpbank-digital\",\r\n    \"name\": \"TPBank Mobile Banking\",\r\n    \"subtitle\": \"Nâng cao trải nghiệm người dùng cho Ngân hàng số Tiên Phong\",\r\n    \"service\": [\"UX/UI Design\", \"Mobile App\"],\r\n    \"description\": \"Chúng tôi thiết kế UX/UI cho hệ sinh thái ứng dụng của TPBank, bao gồm ứng dụng xếp hạng Top 1 lĩnh vực tài chính Việt Nam trên App Store.\",\r\n    \"price\": \"Giá thỏa thuận\",\r\n    \"tags\": [\"Finance\", \"Mobile App\"],\r\n    \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed=TPBank\"\r\n  },\r\n  {\r\n    \"id\": \"the-coffee-house\",\r\n    \"name\": \"The Coffee House App\",\r\n    \"subtitle\": \"Nền tảng Loyalty platform đầu tiên cho chuỗi cafe hàng đầu Việt Nam\",\r\n    \"service\": [\"MVP Development\", \"Mobile App\"],\r\n    \"description\": \"Chúng tôi hiện thực hóa chương trình khách hàng thân thiết của The Coffee House từ phiên bản MVP đầu tiên.\",\r\n    \"price\": \"Giá thỏa thuận\",\r\n    \"tags\": [\"Food & Beverage\", \"Mobile App\"],\r\n    \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed=CoffeeHouse\"\r\n  },\r\n  {{#repeat 145}}\r\n  {\r\n    \"id\": \"geek-prod-{{@index}}\",\r\n    \"name\": \"GEEK Solution {{@index}}\",\r\n    \"subtitle\": \"Giải pháp phần mềm chuyển đổi số chuyên nghiệp phát triển bởi GEEK Up\",\r\n    \"service\": [\"Product Concept\", \"Software Development\"],\r\n    \"description\": \"Sản phẩm được phát triển nhằm tối ưu hóa quy trình vận hành và nâng cao trải nghiệm người dùng theo tiêu chuẩn toàn cầu.\",\r\n    \"price\": \"Giá thỏa thuận\",\r\n    \"tags\": [\"{{oneOf (array 'Finance' 'Agriculture' 'Hospitality' 'Media' 'Transportation' 'Food & Beverage' 'StartUp')}}\", \"{{oneOf (array 'Mobile App' 'Web App' 'Web')}}\"],\r\n    \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed=GeekSolution-{{@index}}\"\r\n  }\r\n  {{/repeat}}\r\n]",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    },
+    {
+      "uuid": "495cb44c-ad01-4c64-8b86-fa50ef321241",
+      "type": "http",
+      "documentation": "",
+      "method": "get",
+      "endpoint": "api/product/:id",
+      "responses": [
+        {
+          "uuid": "a108bb84-af02-4da4-a1da-85a3543373ef",
+          "body": "{\r\n  \"id\": \"{{urlParam 'id'}}\",\r\n  \"name\": \"Chi tiết sản phẩm {{urlParam 'id'}}\",\r\n  \"category\": \"Fintech & Banking\",\r\n  \"price\": 45000,\r\n  \"description\": \"Đây là thông tin chi tiết đầy đủ của sản phẩm phần mềm phát triển bởi GEEK Up. Bao gồm tính năng nổi bật, kiến trúc hệ thống và giao diện chuẩn UI/UX.\",\r\n  \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed={{urlParam 'id'}}\"\r\n}",
+          "latency": 0,
+          "statusCode": 200,
+          "label": "",
+          "headers": [],
+          "bodyType": "INLINE",
+          "filePath": "",
+          "databucketID": "",
+          "sendFileAsBody": false,
+          "rules": [],
+          "rulesOperator": "OR",
+          "disableTemplating": false,
+          "fallbackTo404": false,
+          "default": true,
+          "crudKey": "id",
+          "callbacks": []
+        }
+      ],
+      "responseMode": null,
+      "streamingMode": null,
+      "streamingInterval": 0
+    }
+  ],
+  "rootChildren": [
+    {
+      "type": "route",
+      "uuid": "3e5c4ebb-ec2e-4877-a484-53247fc2e457"
+    },
+    {
+      "type": "route",
+      "uuid": "03522488-8aae-4adb-a585-8b98799e3832"
+    },
+    {
+      "type": "route",
+      "uuid": "f6035e33-4fa7-4d4a-b11e-86b8f10c8757"
+    },
+    {
+      "type": "route",
+      "uuid": "495cb44c-ad01-4c64-8b86-fa50ef321241"
+    }
+  ],
+  "proxyMode": false,
+  "proxyHost": "",
+  "proxyRemovePrefix": false,
+  "tlsOptions": {
+    "enabled": false,
+    "type": "CERT",
+    "pfxPath": "",
+    "certPath": "",
+    "keyPath": "",
+    "caPath": "",
+    "passphrase": ""
+  },
+  "cors": true,
+  "headers": [
+    {
+      "key": "Content-Type",
+      "value": "application/json"
+    },
+    {
+      "key": "Access-Control-Allow-Origin",
+      "value": "*"
+    },
+    {
+      "key": "Access-Control-Allow-Methods",
+      "value": "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS"
+    },
+    {
+      "key": "Access-Control-Allow-Headers",
+      "value": "Content-Type, Origin, Accept, Authorization, Content-Length, X-Requested-With"
+    }
+  ],
+  "proxyReqHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "proxyResHeaders": [
+    {
+      "key": "",
+      "value": ""
+    }
+  ],
+  "data": [],
+  "callbacks": []
+}
