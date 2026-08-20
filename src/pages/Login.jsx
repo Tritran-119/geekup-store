@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import logoSvg from '../assets/logo.svg';
 import mailboxSvg from '../assets/mailbox.svg';
 import axios from 'axios';
-import { Eye, EyeOff, Phone, MapPin } from 'lucide-react';
+import { Eye, EyeOff, Phone, MapPin, ArrowLeft } from 'lucide-react';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -49,7 +49,7 @@ export default function Login() {
                 {/* CỘT TRÁI: THÔNG TIN THƯƠNG HIỆU & HÌNH FLOATING */}
                 <div className="space-y-6 md:pr-6 text-left relative flex flex-col justify-between h-full">
                     <div className="space-y-6">
-                        {/* Logo GEEK Up căn trái */}
+                        {/* LOGO GEEK Up*/}
                         <div className="flex justify-center">
                             <img
                                 src={logoSvg}
@@ -94,7 +94,7 @@ export default function Login() {
                         </div>
                     </div>
 
-                    {/* HÌNH MAILBOX TO BỰ & FLOATING TRÀN LỆCH TRAI DƯỚI */}
+                    {/* HÌNH MAILBOX FLOATING*/}
                     <div className="pt-6 hidden md:block relative">
                         <img
                             src={mailboxSvg}
@@ -106,6 +106,16 @@ export default function Login() {
 
                 {/* CỘT PHẢI: FORM ĐĂNG NHẬP */}
                 <div className="bg-[#EDF6F5] md:pl-6">
+                    {/*NÚT BACK*/}
+                    <button
+                        type="button"
+                        onClick={() => navigate('/')}
+                        className="flex items-center space-x-2 text-gray-500 hover:text-[#33AFA6] transition-colors mb-6 text-sm font-medium"
+                    >
+                        <ArrowLeft size={18} />
+                        <span>Trở về</span>
+                    </button>
+
                     <h2 className="text-3xl font-bold text-[#33AFA6] text-center mb-8">Đăng nhập</h2>
 
                     {error && (

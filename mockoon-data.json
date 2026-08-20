@@ -110,7 +110,7 @@
       "responses": [
         {
           "uuid": "a108bb84-af02-4da4-a1da-85a3543373ef",
-          "body": "{\r\n  \"id\": \"{{urlParam 'id'}}\",\r\n  \"name\": \"Chi tiết sản phẩm {{urlParam 'id'}}\",\r\n  \"category\": \"Fintech & Banking\",\r\n  \"price\": 45000,\r\n  \"description\": \"Đây là thông tin chi tiết đầy đủ của sản phẩm phần mềm phát triển bởi GEEK Up. Bao gồm tính năng nổi bật, kiến trúc hệ thống và giao diện chuẩn UI/UX.\",\r\n  \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed={{urlParam 'id'}}\"\r\n}",
+          "body": "{\r\n  \"id\": \"{{urlParam 'id'}}\",\r\n  \"name\": \"{{urlParam 'id'}}\",\r\n  \"category\": \"Fintech & Banking\",\r\n  \"price\": 45000,\r\n  \"description\": \"Đây là thông tin chi tiết đầy đủ của sản phẩm phần mềm phát triển bởi GEEK Up. Bao gồm tính năng nổi bật, kiến trúc hệ thống và giao diện chuẩn UI/UX.\",\r\n  \"image\": \"https://api.dicebear.com/7.x/identicon/svg?seed={{urlParam 'id'}}\"\r\n}",
           "latency": 0,
           "statusCode": 200,
           "label": "",

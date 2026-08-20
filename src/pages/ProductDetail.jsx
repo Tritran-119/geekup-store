@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Search, LogOut, User, Phone, Mail, MapPin, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
-
-// 🎯 IMPORT CÁC LOGO CÓ SẴN TRONG ASSETS
+import { Search, LogOut, User, Phone, Mail, MapPin, ChevronLeft, ChevronRight, ExternalLink, ArrowRight } from 'lucide-react';
 import logoSvg from '../assets/logo.svg';
 import logoWhiteSvg from '../assets/logo-white.svg';
 
@@ -14,35 +12,58 @@ export default function ProductDetail() {
     const [product, setProduct] = useState(null);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
-    
+
     // Mặc định user là null (chỉ lấy dữ liệu khi có trong localStorage)
     const [user, setUser] = useState(null);
 
-    // Dữ liệu Danh sách Sản phẩm liên quan
+    const unsplashCollection = [
+        "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=1000&auto=format&fit=crop", // Finance / Wealth
+        "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop", // Stock / Trading
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1000&auto=format&fit=crop", // Health Care App
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop", // Business Tech
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop"  // Team Project
+    ];
+
+    const formatProduct = (item) => {
+        const fullName = item.name || item.title || 'Kafi Wealth';
+
+        return {
+            id: item.id || id,
+            fullName: fullName,
+            subtitle: item.subtitle || item.description || 'Giải pháp sản phẩm số tiên phong.',
+            visitLink: item.visitLink || 'https://geekup.vn',
+            hashtags: item.tags ? item.tags.map(t => `#${t.toUpperCase().replace(/\s+/g, '_')}`) : ['#GEEKUP', '#DIGITAL_INNOVATION'],
+            heroImage: item.image || unsplashCollection[0],
+            detailImage: unsplashCollection[3],
+            services: item.service || ['UX Research', 'Product Concept', 'UX Ideation'],
+            description: item.description || item.subtitle || 'Dữ liệu mô tả sản phẩm chi tiết đang được cập nhật từ hệ thống GEEK Up.'
+        };
+    };
+
     const relatedProducts = [
         {
             id: 'kafi-0',
             title: 'Kafi Wealth',
             price: '$ Giá thỏa thuận',
-            desc: 'Chứng Khoán Kafi Tiên Phong Xây dựng Giải Pháp Quản Lý Gia Sản (Wealth...',
-            tags: ['Finance', 'Mobile App'],
-            image: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop'
+            desc: 'Giải pháp Quản lý gia sản và đầu tư thông minh...',
+            tags: ['Finance', 'Wealth Management'],
+            image: unsplashCollection[0]
         },
         {
-            id: 'geekup-portal',
-            title: 'GeekUp Portal',
+            id: 'geekup-health',
+            title: 'GeekUp HealthCare',
             price: '$ Giá thỏa thuận',
-            desc: 'Hệ thống quản lý nội bộ doanh nghiệp tối ưu hóa quy trình làm việc...',
-            tags: ['Enterprise', 'Web App'],
-            image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop'
+            desc: 'Nền tảng theo dõi sức khỏe và chăm sóc y tế từ xa...',
+            tags: ['HealthCare', 'Mobile App'],
+            image: unsplashCollection[2]
         },
         {
             id: 'fintech-wallet',
             title: 'Fintech E-Wallet',
             price: '$ Giá thỏa thuận',
-            desc: 'Ví điện tử thông minh hỗ trợ thanh toán siêu tốc và tích hợp tiện ích...',
+            desc: 'Ví điện tử thông minh hỗ trợ thanh toán siêu tốc...',
             tags: ['Fintech', 'Mobile App'],
-            image: 'https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=600&auto=format&fit=crop'
+            image: unsplashCollection[1]
         }
     ];
 
@@ -60,25 +81,6 @@ export default function ProductDetail() {
         fetchProductDetail();
     }, [id]);
 
-    const formatProduct = (item) => {
-        const fullName = item.name || item.title || 'Sản Phẩm GEEK Up';
-        const nameParts = fullName.split(' ');
-        const firstWord = nameParts[0] || 'GEEK';
-        const restWords = nameParts.slice(1).join(' ') || 'Solution';
-
-        return {
-            id: item.id || id,
-            title: firstWord,
-            highlightTitle: restWords,
-            subtitle: item.subtitle || item.description || 'Giải pháp sản phẩm số tiên phong.',
-            visitLink: item.visitLink || 'https://geekup.vn',
-            hashtags: item.tags ? item.tags.map(t => `#${t.toUpperCase().replace(/\s+/g, '_')}`) : ['#GEEKUP', '#DIGITAL_INNOVATION'],
-            heroImage: item.image || 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1000&auto=format&fit=crop',
-            detailImage: item.image || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1000&auto=format&fit=crop',
-            services: item.service || ['UX Research', 'Product Concept', 'UX Ideation'],
-            description: item.description || item.subtitle || 'Dữ liệu mô tả sản phẩm chi tiết đang được cập nhật từ hệ thống GEEK Up.'
-        };
-    };
 
     const fetchProductDetail = async () => {
         try {
@@ -108,7 +110,7 @@ export default function ProductDetail() {
                     ? "Chứng Khoán Kafi Tiên Phong Xây dựng Giải Pháp Quản Lý Gia Sản (Wealth Management) Thông Minh Và An Toàn"
                     : `Giải pháp chuyển đổi số toàn diện dành riêng cho dự án mã ${id}`,
                 description: isKafi
-                    ? "Chứng khoán Kafi là một trong những đơn vị tiên phong tại Việt Nam trong lĩnh vực Quản lý Gia sản (Wealth Management), tận dụng hệ sinh thái công nghệ số để kiến tạo những giải pháp tài chính toàn diện. Với sự đồng hành từ GEEK Up, Kafi đã xây dựng thành công hệ sinh thái tài chính tích hợp."
+                    ? "Chứng khoán Kafi là một trong những đơn vị tiên phong tại Việt Nam trong lĩnh vực Quản lý Gia sản (Wealth Management), tận dụng hệ sinh thái công nghệ số để kiến tạo những giải pháp tài chính toàn diện. Với sự đồng hành từ GEEK Up, Kafi đã xây dựng thành công hệ sinh thái tài chính tích hợp, bao gồm Kafi Wealth - nền tảng quản lý tài sản và đầu tư, cùng với Kafi Trade - dịch vụ cho vay ký quỹ đầu tư chứng khoán."
                     : `Dự án mã ${id} do GEEK Up tư vấn và triển khai, áp dụng quy trình thiết kế tinh gọn (Lean Product Development) giúp tối ưu hóa trải nghiệm người dùng và gia tăng giá trị cho doanh nghiệp.`,
                 tags: isKafi ? ["Finance", "Mobile App"] : ["Digital", "Innovation"],
                 image: isKafi
@@ -135,6 +137,20 @@ export default function ProductDetail() {
     const handleLogout = () => {
         localStorage.clear();
         setUser(null);
+    };
+
+    const handleContact = (productTitle) => {
+        if (!user) {
+            navigate('/login');
+        } else {
+            alert('Chức năng liên hệ đang được phát triển!');
+        }
+    };
+
+    const handleSearchKeyDown = (e) => {
+        if (e.key === 'Enter' && searchTerm.trim() !== '') {
+            navigate('/', { state: { searchKeyword: searchTerm.trim() } });
+        }
     };
 
     if (loading) {
@@ -165,6 +181,7 @@ export default function ProductDetail() {
                                 placeholder="Tìm kiếm..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
+                                onKeyDown={handleSearchKeyDown} //Bắt sự kiện ấn Enter
                                 className="w-full pl-9 pr-4 py-1.5 border border-gray-300 rounded-full text-sm focus:outline-none focus:border-[#33AFA6]"
                             />
                             <Search className="absolute left-3 top-2.5 text-gray-400 w-4 h-4" />
@@ -182,9 +199,9 @@ export default function ProductDetail() {
                         {user ? (
                             <div className="flex items-center space-x-3">
                                 <img
-                                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=33AFA6&color=fff&bold=true&rounded=true`}
+                                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.name || 'User')}`}
                                     alt="User Avatar"
-                                    className="w-9 h-9 rounded-full border-2 border-[#33AFA6] object-cover shadow-sm"
+                                    className="w-9 h-9 rounded-full border-2 border-[#33AFA6] bg-[#E6F7F5] object-cover shadow-sm"
                                 />
                                 <span className="text-sm font-semibold text-[#0B7B7A] hidden sm:inline">Hi, {user.name || 'User'}</span>
                                 <button
@@ -214,26 +231,41 @@ export default function ProductDetail() {
                 <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                         <div className="lg:col-span-5 space-y-6 pr-0 lg:pr-4">
-                            <h1 className="text-4xl lg:text-5xl font-bold tracking-tight text-gray-900">
-                                {product?.title} <span className="text-[#33AFA6]">{product?.highlightTitle}</span>
-                            </h1>
 
-                            <p className="text-gray-500 text-sm md:text-base leading-relaxed">
-                                {product?.subtitle}
-                            </p>
+                            {/* Title & Nút Xem App */}
+                            <div className="flex items-baseline justify-between gap-4 border-b border-transparent">
+                                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-gray-900">
+                                    {product?.fullName}
+                                </h1>
 
-                            <div>
                                 <a
                                     href={product?.visitLink}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="inline-flex items-center space-x-2 bg-[#33AFA6] hover:bg-[#2b968f] text-white font-medium px-6 py-2.5 rounded-lg shadow-sm transition-all"
+                                    className="inline-flex items-center space-x-1 text-sm font-semibold text-gray-600 hover:text-[#33AFA6] underline underline-offset-4 shrink-0 transition-colors"
                                 >
-                                    <span>Visit App</span>
-                                    <ExternalLink size={16} />
+                                    <span>Xem App</span>
+                                    <ExternalLink size={15} />
                                 </a>
                             </div>
 
+                            {/* Mô tả ngắn (Subtitle) */}
+                            <p className="text-gray-500 text-sm md:text-base leading-relaxed">
+                                {product?.subtitle}
+                            </p>
+
+                            {/* Nút Liên hệ */}
+                            <div>
+                                <button
+                                    onClick={() => handleContact(product?.title)}
+                                    className="inline-flex items-center space-x-2 bg-[#33AFA6] hover:bg-[#2b968f] text-white font-medium px-6 py-2.5 rounded-lg shadow-sm transition-all"
+                                >
+                                    <span>Liên hệ</span>
+                                    <ArrowRight size={18} />
+                                </button>
+                            </div>
+
+                            {/* Hashtags */}
                             <div className="flex flex-wrap gap-3 pt-2 text-xs font-semibold text-[#33AFA6]">
                                 {product?.hashtags.map((tag, idx) => (
                                     <span key={idx} className="hover:underline cursor-pointer">{tag}</span>
@@ -241,6 +273,7 @@ export default function ProductDetail() {
                             </div>
                         </div>
 
+                        {/* Banner Ảnh bên phải */}
                         <div className="lg:col-span-7">
                             <div className="bg-[#E6F7F5] rounded-3xl p-6 sm:p-10 flex items-center justify-center shadow-inner overflow-hidden">
                                 <img
@@ -254,35 +287,37 @@ export default function ProductDetail() {
                 </section>
 
                 {/* THÔNG TIN CHI TIẾT */}
-                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-8">Thông tin chi tiết</h2>
+                <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+                    <h2 className="text-2xl font-bold text-[#0B7B7A] mb-6">Thông tin chi tiết</h2>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-                        <div className="lg:col-span-6">
-                            <div className="bg-[#E6F7F5] rounded-2xl overflow-hidden p-4 shadow-sm">
+                    {/* Dịch vụ */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start mb-8">
+                        <div className="md:col-span-6">
+                            <h3 className="text-lg font-bold text-gray-900">Dịch vụ</h3>
+                        </div>
+                        <div className="md:col-span-6 space-y-1.5 text-sm font-semibold text-gray-800">
+                            {product?.services.map((service, index) => (
+                                <div key={index}>{service}</div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Ảnh + Mô tả */}
+                    <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                        <div className="md:col-span-6">
+                            <div className="rounded-xl overflow-hidden shadow-sm">
                                 <img
                                     src={product?.detailImage}
-                                    alt="Detail Description"
-                                    className="w-full h-auto rounded-xl object-cover max-h-[350px]"
+                                    alt="Detail Banner"
+                                    className="w-full h-auto max-h-[380px] object-cover rounded-xl"
                                 />
                             </div>
                         </div>
 
-                        <div className="lg:col-span-6 space-y-6">
-                            <div>
-                                <h3 className="text-lg font-bold text-gray-900 mb-3">Dịch vụ</h3>
-                                <ul className="space-y-1.5 text-sm font-semibold text-gray-800">
-                                    {product?.services.map((service, index) => (
-                                        <li key={index}>• {service}</li>
-                                    ))}
-                                </ul>
-                            </div>
-
-                            <div className="pt-2">
-                                <p className="text-gray-600 text-sm leading-relaxed text-justify">
-                                    {product?.description}
-                                </p>
-                            </div>
+                        <div className="md:col-span-6">
+                            <p className="text-gray-800 text-sm md:text-base leading-relaxed text-justify font-normal">
+                                {product?.description}
+                            </p>
                         </div>
                     </div>
                 </section>
@@ -333,7 +368,7 @@ export default function ProductDetail() {
                                         <button
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                alert(`Liên hệ về sản phẩm: ${item.title}`);
+                                                handleContact(item.title);
                                             }}
                                             className="w-full bg-white text-[#33AFA6] border border-[#33AFA6] hover:bg-[#33AFA6] hover:text-white text-xs font-semibold py-2 px-4 rounded-xl flex items-center justify-center space-x-2 transition-colors"
                                         >
@@ -397,16 +432,15 @@ export default function ProductDetail() {
                             </div>
                         </div>
 
-                        {/* 🎯 FIX: DÙNG INLINE SVG CHO FACEBOOK VÀ LINKEDIN ĐỂ KHÔNG BỊ LỖI BUILD */}
                         <div className="flex md:justify-end items-center space-x-4 pt-2 md:pt-0">
                             <a href="https://www.facebook.com/GEEKUpVN" target="_blank" rel="noreferrer" aria-label="Facebook">
                                 <svg className="w-6 h-6 fill-current text-white hover:text-[#33AFA6] transition-colors" viewBox="0 0 24 24">
-                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
                                 </svg>
                             </a>
                             <a href="https://www.linkedin.com/company/geekupvn" target="_blank" rel="noreferrer" aria-label="LinkedIn">
                                 <svg className="w-6 h-6 fill-current text-white hover:text-[#33AFA6] transition-colors" viewBox="0 0 24 24">
-                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
                                 </svg>
                             </a>
                         </div>

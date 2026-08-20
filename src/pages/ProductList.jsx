@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import logoSvg from '../assets/logo.svg';
 import logoWhiteSvg from '../assets/logo-white.svg';
@@ -15,9 +15,10 @@ const TAG_LIST = [
 
 export default function ProductList() {
     const navigate = useNavigate();
+    const location = useLocation(); 
+
     const [products, setProducts] = useState([]);
     const [filteredProducts, setFilteredProducts] = useState([]);
-
     const [selectedTags, setSelectedTags] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [visibleCount, setVisibleCount] = useState(8);
@@ -29,8 +30,13 @@ export default function ProductList() {
         if (storedUser) {
             try { setUser(JSON.parse(storedUser)); } catch (e) { }
         }
+
+        if (location.state?.searchKeyword) {
+            setSearchTerm(location.state.searchKeyword);
+        }
+
         fetchProducts();
-    }, []);
+    }, [location.state]);
 
     const fetchProducts = async () => {
         try {
@@ -41,17 +47,26 @@ export default function ProductList() {
                 setFilteredProducts(res.data);
             }
         } catch (err) {
-            // Mock data chuẩn nếu không có API
+            const unsplashImages = [
+                "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=800&auto=format&fit=crop", // Finance / Wealth
+                "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop", // Trading / Stock
+                "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop", // Health Care
+                "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop", // Tech / Business
+                "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800&auto=format&fit=crop", // Teamwork
+                "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop"  // Mobile App
+            ];
+
             const dummyProducts = Array.from({ length: 32 }, (_, i) => ({
                 id: `kafi-${i}`,
-                name: i % 2 === 0 ? "Kafi Wealth" : `GEEK Solution ${i + 1}`,
-                subtitle: "Chứng Khoán Kafi Tiên Phong Xây dựng Giải Pháp Quản Lý Gia Sản (Wealth Management) Thông Minh Và An Toàn",
+                name: i % 3 === 0 ? "Kafi Wealth" : i % 3 === 1 ? `Kafi Care Health ${i}` : `GEEK Solution ${i + 1}`,
+                subtitle: "Giải pháp ứng dụng công nghệ hàng đầu tiên phong cho doanh nghiệp số",
                 service: ["UX Research", "Product Concept"],
-                description: "Chứng khoán Kafi là một trong những đơn vị tiên phong tại Việt Nam.",
+                description: "Đơn vị tiên phong tại Việt Nam trong triển khai giải pháp chuyển đổi số.",
                 price: "Giá thỏa thuận",
-                tags: i % 2 === 0 ? ["Finance", "Mobile App"] : ["Agriculture", "StartUp"],
-                image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop"
+                tags: i % 3 === 0 ? ["Finance", "Wealth Management"] : i % 3 === 1 ? ["HealthCare", "Mobile App"] : ["Agriculture", "StartUp"],
+                image: unsplashImages[i % unsplashImages.length] // 🎯 Thay ảnh DiceBear bằng ảnh Unsplash sinh động
             }));
+
             setProducts(dummyProducts);
             setFilteredProducts(dummyProducts);
         } finally {
@@ -160,9 +175,9 @@ export default function ProductList() {
                         {user ? (
                             <div className="flex items-center space-x-3">
                                 <img
-                                    src={`https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || 'User')}&background=33AFA6&color=fff&bold=true&rounded=true`}
+                                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${encodeURIComponent(user.name || 'User')}`}
                                     alt="User Avatar"
-                                    className="w-9 h-9 rounded-full border-2 border-[#33AFA6] object-cover shadow-sm"
+                                    className="w-9 h-9 rounded-full border-2 border-[#33AFA6] bg-[#E6F7F5] object-cover shadow-sm"
                                 />
                                 <span className="text-sm font-semibold text-[#0B7B7A] hidden sm:inline">
                                     Hi, {user.name || 'User'}
@@ -286,19 +301,17 @@ export default function ProductList() {
                             {filteredProducts.slice(0, visibleCount).map((product) => (
                                 <div
                                     key={product.id}
-                                    /* 🎯 Bấm vào bất kỳ đâu trên card sẽ sang trang Detail */
                                     onClick={() => navigate(`/product/${product.id}`)}
-                                    /* 🎯 Hiệu ứng Hover nổi nhẹ & Trỏ chuột bàn tay */
                                     className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 cursor-pointer transition-all duration-300 flex flex-col justify-between group"
                                 >
                                     <div>
-                                        <div className="bg-[#DDF0ED] p-6 h-52 flex items-center justify-center relative overflow-hidden">
+                                        <div className="bg-[#DDF0ED] h-52 flex items-center justify-center relative overflow-hidden">
                                             <img
-                                                src={product.image || "../src/assets/hero.jpg"}
+                                                src={product.image || "https://images.unsplash.com/photo-1559526324-4b87b5e36e44?q=80&w=800&auto=format&fit=crop"}
                                                 alt={product.name}
-                                                className="max-h-full max-w-full object-contain group-hover:scale-105 transition-transform duration-300"
+                                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                                                 onError={(e) => {
-                                                    e.target.src = "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=600&auto=format&fit=crop";
+                                                    e.target.src = "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop";
                                                 }}
                                             />
                                         </div>
@@ -326,10 +339,13 @@ export default function ProductList() {
 
                                     <div className="p-5 pt-0">
                                         <button
-                                            /* 🎯 Nút Liên Hệ Ngay dùng e.stopPropagation() để CHẶN chuyển trang */
                                             onClick={(e) => {
                                                 e.stopPropagation();
-                                                alert(`Đang liên hệ dự án: ${product.name}, chức năng đang phát triển...`);
+                                                if (!user) {
+                                                    navigate('/login');
+                                                } else {
+                                                    alert('Chức năng liên hệ đang được phát triển!');
+                                                }
                                             }}
                                             className="w-full border border-[#33AFA6] text-[#33AFA6] hover:bg-[#33AFA6] hover:text-white font-medium py-2 rounded-xl text-xs flex items-center justify-center space-x-2 transition-all shadow-sm"
                                         >
@@ -356,12 +372,11 @@ export default function ProductList() {
                 )}
             </section>
 
-            {/* ---------------- 5. FOOTER ---------------- */}
+            {/* FOOTER */}
             <footer className="bg-[#04201E] text-white pt-12 pb-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                     <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-start text-xs text-gray-300">
-                        {/* Cột 1: Liên hệ */}
                         <div className="space-y-3">
                             <p className="font-bold text-white text-base mb-1">Liên hệ</p>
                             <p className="flex items-center space-x-2 text-sm">
@@ -374,7 +389,6 @@ export default function ProductList() {
                             </p>
                         </div>
 
-                        {/* Cột 2: Địa chỉ */}
                         <div className="space-y-3 md:col-span-2">
                             <p className="font-bold text-white text-base mb-1">Địa chỉ</p>
                             <div className="flex items-start space-x-2 text-sm">
@@ -387,7 +401,6 @@ export default function ProductList() {
                             </div>
                         </div>
 
-                        {/* Cột 3 & 4: Nav Links */}
                         <div className="grid grid-cols-2 gap-4 md:col-span-1 text-sm font-medium space-y-0">
                             <div className="space-y-2.5">
                                 <button onClick={() => window.location.href = '/'} className="block hover:text-[#33AFA6] transition-colors text-left">Trang chủ</button>
@@ -403,7 +416,6 @@ export default function ProductList() {
                             </div>
                         </div>
 
-                        {/* Cột 5: Social Icons */}
                         <div className="flex md:justify-end items-center space-x-4 pt-2 md:pt-0">
                             <a href="https://www.facebook.com/GEEKUpVN" target="_blank" rel="noreferrer" className="hover:opacity-80 transition-opacity">
                                 <img
