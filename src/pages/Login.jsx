@@ -12,34 +12,66 @@ export default function Login() {
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
 
-    const handleSubmit = async (e) => {
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+    //     setError('');
+
+    //     if (!formData.account.trim() || !formData.password.trim()) {
+    //         setError('Vui lòng nhập đầy đủ Username/Email và Mật khẩu!');
+    //         return;
+    //     }
+
+    //     try {
+    //         setLoading(true);
+    //         const res = await axios.post('http://localhost:3001/api/login', {
+    //             username: formData.account,
+    //             password: formData.password,
+    //         });
+
+    //         if (res.data.success) {
+    //             localStorage.setItem('token', res.data.token);
+    //             localStorage.setItem('user', JSON.stringify(res.data.user));
+    //             navigate('/');
+    //         } else {
+    //             setError('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
+    //         }
+    //     } catch (err) {
+    //         setError('Không thể kết nối đến server API (Mockoon port 3001)!');
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+    const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
 
+        // Kiểm tra không để trống
         if (!formData.account.trim() || !formData.password.trim()) {
             setError('Vui lòng nhập đầy đủ Username/Email và Mật khẩu!');
             return;
         }
 
-        try {
-            setLoading(true);
-            const res = await axios.post('http://localhost:3001/api/login', {
-                username: formData.account,
-                password: formData.password,
-            });
+        setLoading(true);
 
-            if (res.data.success) {
-                localStorage.setItem('token', res.data.token);
-                localStorage.setItem('user', JSON.stringify(res.data.user));
-                navigate('/');
-            } else {
-                setError('Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.');
-            }
-        } catch (err) {
-            setError('Không thể kết nối đến server API (Mockoon port 3001)!');
-        } finally {
+        // Tạo hiệu ứng chờ 0.5s cho giống thật rồi tự động đăng nhập
+        setTimeout(() => {
+            // 1. Tạo token và user giả lập từ thông tin người dùng nhập
+            const mockUser = {
+                name: formData.account,
+                email: formData.account.includes('@') ? formData.account : `${formData.account}@geekup.vn`,
+                role: 'Demo User'
+            };
+
+            // 2. Lưu thông tin vào localStorage
+            localStorage.setItem('token', 'demo-token-123456789');
+            localStorage.setItem('user', JSON.stringify(mockUser));
+
             setLoading(false);
-        }
+            
+            // 3. Chuyển hướng về trang chủ
+            navigate('/');
+        }, 500);
     };
 
     return (
